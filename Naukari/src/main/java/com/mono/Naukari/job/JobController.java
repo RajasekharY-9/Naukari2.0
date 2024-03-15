@@ -23,8 +23,9 @@ jobService.createJob(job);
 }
 
 @GetMapping("/jobs/{id}")
-    Job getJob(@PathVariable Integer id){
-       return jobService.getJob(id);
+    void getJob(@PathVariable Integer id){
+
+         jobService.getJob(id);
     }
 
 

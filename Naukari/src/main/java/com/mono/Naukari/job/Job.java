@@ -5,7 +5,7 @@ import com.mono.Naukari.company.Company;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "job_table")
+//@Table(name = "job_table")
 public class Job {
 
     @Id
@@ -20,7 +20,6 @@ String minSalary;
 String maxSalary;
 String location;
 @ManyToOne
-        @JsonIgnore
 Company company;
 
 
@@ -32,6 +31,7 @@ Company company;
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
         this.location = location;
+
 
     }
 

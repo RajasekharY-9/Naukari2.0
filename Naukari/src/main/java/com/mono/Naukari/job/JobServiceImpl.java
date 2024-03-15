@@ -46,6 +46,7 @@ else{
     j.setTitle(job.getTitle());
     j.setMaxSalary(job.getMaxSalary());
     j.setMinSalary(job.getMinSalary());
+    j.setCompany(job.getCompany());
     jobRepository.save(j);
 }
     }

@@ -2,6 +2,7 @@ package com.mono.Naukari.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mono.Naukari.job.Job;
+import com.mono.Naukari.review.Review;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class Company {
 
     @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
-            @Column(name="company_id")
+           // @Column(name="company_id")
     Integer id;
 
     String name;
@@ -20,9 +21,21 @@ public class Company {
 
     @JsonIgnore//remove recursion call back
     @OneToMany(mappedBy = "company")
-    List<Job> jobs;
+    List<Job> job;
 
-//List<Review> reviews;
+    @OneToMany(mappedBy = "company")
+    @JsonIgnore//remove recursion call back
+    List<Review> reviews;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    //List<Review> reviews;
     public Company() {
     }
 
@@ -51,17 +64,17 @@ public class Company {
     }
 
     public List<Job> getJobs() {
-        return jobs;
+        return job;
     }
 
     public void setJobs(List<Job> jobs) {
-        this.jobs = jobs;
+        this.job = jobs;
     }
 
     public Company(Integer id, String name, String description, List<Job> jobs) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.jobs = jobs;
+        this.job= jobs;
     }
 }
