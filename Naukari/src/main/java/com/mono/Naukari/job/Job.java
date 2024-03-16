@@ -1,5 +1,6 @@
 package com.mono.Naukari.job;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mono.Naukari.company.Company;
 import jakarta.persistence.*;
@@ -19,7 +20,9 @@ String description;
 String minSalary;
 String maxSalary;
 String location;
-@ManyToOne
+    @JsonBackReference // Indicates the back part of the relationship
+    @ManyToOne
+    @JoinColumn(name = "company_id")
 Company company;
 
 

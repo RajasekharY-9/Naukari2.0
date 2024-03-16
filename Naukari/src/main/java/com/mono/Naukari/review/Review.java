@@ -1,16 +1,20 @@
 package com.mono.Naukari.review;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mono.Naukari.company.Company;
 import jakarta.persistence.*;
 
 @Entity
 public class Review {
     @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String comment;
-String rating;
+    String rating;
+    @JsonBackReference // Indicates the back part of the relationship
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    Company company;
 
     public Integer getId() {
         return id;
@@ -36,9 +40,6 @@ String rating;
         this.rating = rating;
     }
 
-    @ManyToOne
-@JsonIgnore
-   Company company;
 
     public Company getCompany() {
         return company;

@@ -1,30 +1,31 @@
 package com.mono.Naukari.company;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mono.Naukari.job.Job;
 import com.mono.Naukari.review.Review;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Company {
 
     @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
-           // @Column(name="company_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column(name="company_id")
     Integer id;
 
     String name;
 
     String description;
 
-    @JsonIgnore//remove recursion call back
-    @OneToMany(mappedBy = "company")
-    List<Job> job;
+    @JsonManagedReference // Indicates the forward part of the relationship
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    List<Job> jobs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "company")
-    @JsonIgnore//remove recursion call back
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @JsonManagedReference //remove recursion call back
     List<Review> reviews;
 
     public List<Review> getReviews() {
@@ -64,17 +65,17 @@ public class Company {
     }
 
     public List<Job> getJobs() {
-        return job;
+        return jobs;
     }
 
     public void setJobs(List<Job> jobs) {
-        this.job = jobs;
+        this.jobs = jobs;
     }
 
     public Company(Integer id, String name, String description, List<Job> jobs) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.job= jobs;
+        this.jobs = jobs;
     }
 }
